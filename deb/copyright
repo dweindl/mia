@@ -1,0 +1,9 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: mia
+Upstream-Contact: Daniel Weindl <daniel.weindl@uni.lu>
+Source: http://massisotopolomeanalyzer.lu/
+
+Files: *
+Copyright: 2012-2015 Daniel Weindl <daniel.weindl@uni.lu>
+License: GPL-3
+ /usr/share/common-licenses/GPL-3

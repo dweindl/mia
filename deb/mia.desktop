@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=MIA
+Comment=Mass Isotopolome Analyzer
+Exec=mia-gui
+Icon=mia
+Terminal=false
+Categories=Science;Biology
