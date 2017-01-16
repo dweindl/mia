@@ -49,12 +49,14 @@ void LabelingNetworkSet::exportMIDs(QTextStream &qout)
     std::string quote = "\"";
 
     // header
-    out<<"Metabolite"<<sep<<"RI"<<sep<<"Ions (M0)"<<sep<<"M"<<sep;
+    out<<"Metabolite"<<sep<<"RI"<<sep<<"Ions (M0)"<<sep<<"M";
     for(int ds = 0; ds < datasets.size(); ++ds) { // each experiment
         std::string t = datasets[ds]->getSettings().experiment;
-        if(ds)
-            out<<sep;
-        out <<quote<<t<<quote;
+        out <<sep<<quote<<t<<quote;
+    }
+    for(int ds = 0; ds < datasets.size(); ++ds) { // confidence intervals
+        std::string t = "CI " + datasets[ds]->getSettings().experiment;
+        out <<sep<<quote<<t<<quote;
     }
     out<<std::endl;
 
@@ -97,20 +99,33 @@ void LabelingNetworkSet::exportMIDs(QTextStream &qout)
             ions << ion << " ";
         }
 
-        // abundance
         for(int i = 0; i < midLen; ++i) {
-            out<<quote<<nc->getCompoundName()<<quote<<sep<<ri<<sep<<ions.str()<<sep<<i<<sep;
+            out<<quote<<nc->getCompoundName()<<quote<<sep<<ri<<sep<<ions.str()<<sep<<i;
 
+            // abundance
             for(int ds = 0; ds < datasets.size(); ++ds) { // each experiment
                 std::string t = datasets[ds]->getSettings().experiment;
                 std::vector<double> mid;
+
                 if(nc->hasDataForExperiment(t))
                     mid = nc->getSelectedMID(t);
 
-                if(ds)
-                    out<<sep;
+                out << sep;
                 out << (mid.size() > i ? mid[i] : 0);
             }
+
+            // confidence interval
+            for(int ds = 0; ds < datasets.size(); ++ds) { // each experiment
+                std::string t = datasets[ds]->getSettings().experiment;
+                std::vector<double> ci;
+
+                if(nc->hasDataForExperiment(t))
+                    ci = nc->getSelectedCI(t);
+
+                out << sep;
+                out << (ci.size() > i ? ci[i] : 0);
+            }
+
 //            out<<sep<<nc->getANOVAPvalueForMassIsotopomer(i);
             out<<std::endl;
         }
