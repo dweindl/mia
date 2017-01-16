@@ -101,6 +101,18 @@ set (GraphViz_LIBRARIES
   ${GraphViz_LIBRARY_PATH}/lib/common/.libs/libcommon_C.a
 )
 
+set (GraphViz_LIBRARIES 
+  ${GraphViz_LIBRARY_PATH}/graphviz/libgvplugin_core.so
+  ${GraphViz_LIBRARY_PATH}/graphviz/libgvplugin_dot_layout.so
+  ${GraphViz_LIBRARY_PATH}/graphviz/libgvplugin_neato_layout.so
+  ${GraphViz_LIBRARY_PATH}/libgvc.so
+  ${GraphViz_LIBRARY_PATH}/libcgraph.so
+  ${GraphViz_LIBRARY_PATH}/libcdt.so
+  ${GraphViz_LIBRARY_PATH}/libpathplan.so
+
+)
+
+
 set (Boost_LIBRARIES
     ${Boost_FILESYSTEM_LIBRARY_RELEASE}
     ${Boost_REGEX_LIBRARY_RELEASE}
@@ -185,14 +197,15 @@ else()
     endif()
 
     target_link_libraries(mia-gui
-        ${MD_LIBRARY}
+#        ${MD_LIBRARY}
         ${LabId_LIBRARY}
         ${GCMS_LIBRARY}
         ${Boost_LIBRARIES}
         ${ZLIB_LIBRARIES}
         ${GSL_LIBRARIES}
         ${QWT_LIBRARY}
-        ${STATIC_QT_LIBRARIES}
+	${NetCDF_LIBRARY}
+#        ${STATIC_QT_LIBRARIES}
     )
 endif()
 

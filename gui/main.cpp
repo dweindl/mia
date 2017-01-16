@@ -27,11 +27,13 @@
 #include"graphvizqt.h"
 #include"miaguiconstants.h"
 
+#ifdef QT_STATIC
 #ifndef _WINDOWS_
     Q_IMPORT_PLUGIN(QXcbIntegrationPlugin)
 #endif
 #ifdef _WINDOWS_
     Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin)
+#endif
 #endif
 
 int main(int argc, char *argv[])

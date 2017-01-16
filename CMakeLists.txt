@@ -116,6 +116,7 @@ else()
     set(CPACK_GENERATOR "DEB") # ;TGZ
     exec_program("dpkg --print-architecture" OUTPUT_VARIABLE CPACK_DEBIAN_PACKAGE_ARCHITECTURE)
     set(CPACK_DEBIAN_PACKAGE_DEPENDS "libc6,libpq5,libgsl0ldbl,libx11-xcb1,libxkbcommon-x11-0,libjpeg8,libpng12-0") # objdump -p gui/mia-gui | grep NEEDED
+    set(CPACK_DEBIAN_PACKAGE_DEPENDS "libc6,libqt5core5a,libqt5gui5,libqt5widgets5,libnetcdf11,libgsl2,libboost-regex1.58.0,libgvc6,libqt5svg5")
     set(CPACK_DEBIAN_PACKAGE_SECTION "Science")
     set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Mass Isotopolome Analyzer
     Non-targeted stable isotope labeling analysis tool")
