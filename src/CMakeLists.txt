@@ -15,7 +15,6 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 find_package(Qt5Concurrent REQUIRED)
-set(CMAKE_BUILD_TYPE Debug)
 
 set(SRC_LIST
     ../alg/alglibinternal.cpp
@@ -40,9 +39,6 @@ set(SRC_LIST
 if(MIA_WITH_NETCDF_IMPORT)
   set(SRC_LIST ${SRC_LIST} compounddetector.cpp)
 endif()
-
-
-set(CMAKE_BUILD_TYPE Debug)
 
 include_directories(
  ${CMAKE_CURRENT_SOURCE_DIR}
