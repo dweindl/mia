@@ -674,7 +674,7 @@ void MIAMainWindow::exportMIDs()
     QFile f(filename);
     f.open(QIODevice::WriteOnly);
     QTextStream out(&f);
-    networkSet->exportMIDs(out);
+    networkSet->exportAllMIDs(out);
 }
 
 void MIAMainWindow::updateCompoundList()
