@@ -18,6 +18,11 @@ project(mia)
 
 cmake_minimum_required(VERSION 2.8)
 
+# Set version
+execute_process(COMMAND sh -c "git describe --abbrev=4 --dirty=-dirty --always --tags  | tr -d '\n'" OUTPUT_VARIABLE GIT_VERSION)
+message("Building version ${GIT_VERSION}")
+add_definitions(-DMIA_VERSION="${GIT_VERSION}")
+
 MESSAGE( STATUS "CMAKE_SYSTEM: " ${CMAKE_SYSTEM} )
 MESSAGE( STATUS "CMAKE_SYSTEM_NAME: " ${CMAKE_SYSTEM_NAME} )
 MESSAGE( STATUS "CMAKE_SYSTEM_VERSION: " ${CMAKE_SYSTEM_VERSION} )
@@ -59,15 +64,6 @@ if(MIA_WITH_NETCDF_IMPORT)
     find_package(NetCDF REQUIRED)
 endif()
 
-# Set version
-set(VERSION_MAJOR "1")
-set(VERSION_MINOR "0")
-set(VERSION_PATCH "0")
-exec_program("bpp.sh" OUTPUT_VARIABLE  CMAKE_TWEAK_VERSION)
-exec_program("date +%Y%m%d%H%M" OUTPUT_VARIABLE  CMAKE_TWEAK_VERSION)
-set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}.${CMAKE_TWEAK_VERSION}")
-add_definitions(-DMIA_VERSION="${VERSION}")
-
 find_package(LabId REQUIRED)
 find_package(GSL REQUIRED)
 find_package(GCMS REQUIRED)
@@ -91,14 +87,10 @@ add_subdirectory(gui) # GUI
 #############################
 # BEGIN CPACK configuration #
 #############################
-set(CPACK_PACKAGE_VERSION_MAJOR ${VERSION_MAJOR})
-set(CPACK_PACKAGE_VERSION_MINOR ${VERSION_MINOR})
-set(CPACK_PACKAGE_VERSION_PATCH ${VERSION_PATCH})
-set(CPACK_PACKAGE_VERSION_PATCH ${VERSION_PATCH})
-set(CPACK_PACKAGE_VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}.${CMAKE_TWEAK_VERSION}")
-set(CPACK_PACKAGE_CONTACT "Daniel WEINDL <daniel.weindl@uni.lu>")
+set(CPACK_PACKAGE_VERSION ${GIT_VERSION})
+set(CPACK_PACKAGE_CONTACT "Daniel WEINDL <sci@danielweindl.de>")
 set(CPACK_PACKAGE_NAME "mia")
-set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}_${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}-${CMAKE_TWEAK_VERSION}_${CPACK_DEBIAN_PACKAGE_ARCHITECTURE}")
+set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}_${GIT_VERSION}_${CPACK_DEBIAN_PACKAGE_ARCHITECTURE}")
 set(CPACK_PACKAGE_EXECUTABLES "mia-gui" "MIA - Mass Isotopolome Analyzer")
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
@@ -107,7 +99,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
     set(CPACK_NSIS_MUI_UNIICON ${CPACK_NSIS_MUI_ICON})
     set(CPACK_NSIS_HELP_LINK "http://massisotopolomeanalyzer.lu/")
     set(CPACK_NSIS_URL_INFO_ABOUT "http://massisotopolomeanalyzer.lu/")
-    set(CPACK_NSIS_CONTACT "daniel.weindl@uni.lu")
+    set(CPACK_NSIS_CONTACT "sci@danielweindl.de")
     set(CPACK_NSIS_CREATE_ICONS "CreateShortCut '\$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\MIA.lnk' '\$INSTDIR\\\\bin\\\\mia-gui.exe'")
     set(CPACK_NSIS_MUI_FINISHPAGE_RUN "mia-gui.exe")
     install(FILES "${CMAKE_SOURCE_DIR}/doc/${CPACK_PACKAGE_NAME}-doc.pdf" DESTINATION "doc\\\\")
