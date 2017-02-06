@@ -19,8 +19,8 @@ project(mia)
 cmake_minimum_required(VERSION 2.8)
 
 # Set version
-execute_process(COMMAND sh -c "git describe --abbrev=4 --dirty=-dirty --always --tags  | tr -d '\n'" OUTPUT_VARIABLE GIT_VERSION)
-message("Building version ${GIT_VERSION}")
+execute_process(COMMAND sh -c "git describe --abbrev=4 --dirty=-dirty --always --tags | cut -c2- | tr -d '\n'" OUTPUT_VARIABLE GIT_VERSION)
+message( STATUS "Building version ${GIT_VERSION}")
 add_definitions(-DMIA_VERSION="${GIT_VERSION}")
 
 MESSAGE( STATUS "CMAKE_SYSTEM: " ${CMAKE_SYSTEM} )
@@ -90,7 +90,7 @@ add_subdirectory(gui) # GUI
 set(CPACK_PACKAGE_VERSION ${GIT_VERSION})
 set(CPACK_PACKAGE_CONTACT "Daniel WEINDL <sci@danielweindl.de>")
 set(CPACK_PACKAGE_NAME "mia")
-set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}_${GIT_VERSION}_${CPACK_DEBIAN_PACKAGE_ARCHITECTURE}")
+set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}_${GIT_VERSION}")
 set(CPACK_PACKAGE_EXECUTABLES "mia-gui" "MIA - Mass Isotopolome Analyzer")
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
@@ -107,6 +107,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
 else()
     set(CPACK_GENERATOR "DEB") # ;TGZ
     exec_program("dpkg --print-architecture" OUTPUT_VARIABLE CPACK_DEBIAN_PACKAGE_ARCHITECTURE)
+    set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}_${GIT_VERSION}_${CPACK_DEBIAN_PACKAGE_ARCHITECTURE}")
     set(CPACK_DEBIAN_PACKAGE_DEPENDS "libc6,libpq5,libgsl0ldbl,libx11-xcb1,libxkbcommon-x11-0,libjpeg8,libpng12-0") # objdump -p gui/mia-gui | grep NEEDED
     set(CPACK_DEBIAN_PACKAGE_DEPENDS "libc6,libqt5core5a,libqt5gui5,libqt5widgets5,libnetcdf11,libgsl2,libboost-regex1.58.0,libgvc6,libqt5svg5")
     set(CPACK_DEBIAN_PACKAGE_SECTION "Science")
