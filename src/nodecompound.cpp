@@ -74,6 +74,12 @@ labid::LabeledCompound *NodeCompound::getLabeledCompound(std::string experiment)
     return lcs[idx];
 }
 
+labid::LabeledCompound *NodeCompound::getLabeledCompound(QString experiment)
+{
+    int idx = experimentsLab.indexOf(experiment);
+    return lcs[idx];
+}
+
 void NodeCompound::removeLabeledCompound(labid::LabeledCompound *lc)
 {
     int idx = lcs.indexOf(lc);
@@ -408,6 +414,18 @@ double NodeCompound::getANOVAPvalue(std::vector<double> means, std::vector<doubl
     double p = gsl_cdf_fdist_Q(f, df1, df2);
 
     return p;
+}
+
+double NodeCompound::getAverageRetentionIndex()
+{
+    double ri = 0;
+    double riCount = 0;
+    foreach(QString key, experimentsLab){
+        ri += getLabeledCompound(key)->getRetentionIndex();
+        ++riCount;
+    }
+
+    return ri /= riCount;
 }
 
 std::vector<std::string> NodeCompound::getExperiments()

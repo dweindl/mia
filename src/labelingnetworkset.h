@@ -56,7 +56,9 @@ public:
     LabelingNetworkSet();
     ~LabelingNetworkSet();
 
-    void exportMIDs(QTextStream &qout);
+    void exportSelectedMIDs(QTextStream &qout);
+
+    void exportAllMIDs(QTextStream &qout);
 
     bool nodeHasEdges(int n);
 

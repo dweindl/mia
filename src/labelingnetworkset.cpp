@@ -42,7 +42,7 @@ LabelingNetworkSet::~LabelingNetworkSet()
     }
 }
 
-void LabelingNetworkSet::exportMIDs(QTextStream &qout)
+void LabelingNetworkSet::exportSelectedMIDs(QTextStream &qout)
 {
     std::stringstream out;
     std::string sep = ",";
@@ -50,18 +50,20 @@ void LabelingNetworkSet::exportMIDs(QTextStream &qout)
 
     // header
     out<<"Metabolite"<<sep<<"RI"<<sep<<"Ions (M0)"<<sep<<"M";
+    // header abundances
     for(int ds = 0; ds < datasets.size(); ++ds) { // each experiment
         std::string t = datasets[ds]->getSettings().experiment;
         out <<sep<<quote<<t<<quote;
     }
-    for(int ds = 0; ds < datasets.size(); ++ds) { // confidence intervals
+    // header confidence intervals
+    for(int ds = 0; ds < datasets.size(); ++ds) { // each experiment
         std::string t = "CI " + datasets[ds]->getSettings().experiment;
         out <<sep<<quote<<t<<quote;
     }
     out<<std::endl;
 
     // data
-    for(int n = 0; n < nodes.size(); ++n) {
+    for(int n = 0; n < nodes.size(); ++n) { // foreach compound
         NodeCompound *nc = nodes[n];
 
        // determine max. MID length for this compound
@@ -73,22 +75,11 @@ void LabelingNetworkSet::exportMIDs(QTextStream &qout)
             }
         }
 
-        // ri
-        double ri = 0;
-        double riCount = 0;
-        for(int ds = 0; ds < datasets.size(); ++ds) { // each experiment
-            std::string t = datasets[ds]->getSettings().experiment;
-            if(nc->hasDataForExperiment(t)) {
-                ri += nc->getLabeledCompound(t)->getRetentionIndex();
-                ++riCount;
-            }
-        }
-
-        ri /= riCount;
+        double ri = nc->getAverageRetentionIndex();
 
 
+        // list of selected ions m/z
         std::stringstream ions;
-
         for(int ds = 0; ds < datasets.size(); ++ds) { // each experiment
             std::string t = datasets[ds]->getSettings().experiment;
             double ion = 0;
@@ -99,7 +90,8 @@ void LabelingNetworkSet::exportMIDs(QTextStream &qout)
             ions << ion << " ";
         }
 
-        for(int i = 0; i < midLen; ++i) {
+        // abundances and confidence interval
+        for(int i = 0; i < midLen; ++i) { // for each M+x
             out<<quote<<nc->getCompoundName()<<quote<<sep<<ri<<sep<<ions.str()<<sep<<i;
 
             // abundance
@@ -125,14 +117,111 @@ void LabelingNetworkSet::exportMIDs(QTextStream &qout)
                 out << sep;
                 out << (ci.size() > i ? ci[i] : 0);
             }
-
-//            out<<sep<<nc->getANOVAPvalueForMassIsotopomer(i);
             out<<std::endl;
         }
     }
 
     qout<<out.str().c_str();
 }
+
+void LabelingNetworkSet::exportAllMIDs(QTextStream &qout)
+{
+    std::stringstream out;
+    std::string sep = ",";
+    std::string quote = "\"";
+
+    // header
+    out<<"Metabolite"<<sep<<"RI"<<sep<<"Ions (M0)"<<sep<<"M";
+    // header abundances
+    for(int ds = 0; ds < datasets.size(); ++ds) { // each experiment
+        std::string t = datasets[ds]->getSettings().experiment;
+        out <<sep<<quote<<t<<quote;
+    }
+    // header confidence intervals
+    for(int ds = 0; ds < datasets.size(); ++ds) { // each experiment
+        std::string t = "CI " + datasets[ds]->getSettings().experiment;
+        out <<sep<<quote<<t<<quote;
+    }
+    out<<std::endl;
+
+    // data
+    for(int n = 0; n < nodes.size(); ++n) { // foreach compound
+        NodeCompound *nc = nodes[n];
+
+        std::set<int> lions = nc->getAllLabeledIons();
+        for(std::set<int>::iterator it = lions.begin(); it != lions.end(); ++it) {
+            int ion = *it;
+
+            // determine max. MID length for this ion
+            int midLen = 0;
+            for(int ds = 0; ds < datasets.size(); ++ds) { // each experiment
+                std::string t = datasets[ds]->getSettings().experiment;
+                if(nc->hasDataForExperiment(t)) {
+                    // index of ion
+                    const std::vector<float> tmpIons = nc->getLabeledCompound(t)->getLabeledIons();
+                    for(int i = 0; i < tmpIons.size(); ++i) {
+                        if((int)tmpIons[i] == ion) {
+                            midLen = std::max(midLen, (int) (nc->getLabeledCompound(t)->getIsotopomers()[i].size()));
+                            break;
+                        }
+                    }
+                }
+            }
+            double ri = nc->getAverageRetentionIndex();
+
+            // abundances and confidence interval
+            for(int i = 0; i < midLen; ++i) { // for each M+x
+                out<<quote<<nc->getCompoundName()<<quote<<sep<<ri<<sep<<ion<<sep<<i;
+
+                // abundance
+                for(int ds = 0; ds < datasets.size(); ++ds) { // each experiment
+                    std::string t = datasets[ds]->getSettings().experiment;
+                    std::vector<double> mid;
+
+                    if(nc->hasDataForExperiment(t)) {
+                        // index of ion
+                        const std::vector<float> tmpIons = nc->getLabeledCompound(t)->getLabeledIons();
+
+                        for(int j = 0; j < tmpIons.size(); ++j) {
+
+                            if((int)tmpIons[j] == ion) {
+                                mid = nc->getLabeledCompound(t)->getIsotopomers()[j];
+                                break;
+                            }
+                        }
+                    }
+
+                    out << sep;
+                    out << (mid.size() > i ? mid[i] : 0);
+                }
+
+                // confidence interval
+                for(int ds = 0; ds < datasets.size(); ++ds) { // each experiment
+                    std::string t = datasets[ds]->getSettings().experiment;
+                    std::vector<double> ci;
+
+                    if(nc->hasDataForExperiment(t)) {
+                        // index of ion
+                        const std::vector<float> tmpIons = nc->getLabeledCompound(t)->getLabeledIons();
+                        for(int j = 0; j < tmpIons.size(); ++j) {
+                            if((int)tmpIons[j] == ion) {
+                                ci = nc->getLabeledCompound(t)->getConfidenceIntervals()[j];
+                                break;
+                            }
+                        }
+                    }
+
+                    out << sep;
+                    out << (ci.size() > i ? ci[i] : 0);
+                }
+                out<<std::endl;
+            }
+        }
+    }
+
+    qout<<out.str().c_str();
+}
+
 
 bool LabelingNetworkSet::nodeHasEdges(int n)
 {

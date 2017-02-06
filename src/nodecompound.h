@@ -48,6 +48,7 @@ public:
 
     void addLabeledCompound(std::string experiment, labid::LabeledCompound *lc);
     labid::LabeledCompound *getLabeledCompound(std::string experiment);
+    labid::LabeledCompound *getLabeledCompound(QString experiment);
     void removeLabeledCompound(labid::LabeledCompound *);
     void addUnlabeledCompound(std::string experiment, labid::LISpectrum *ls);
     labid::LISpectrum* getUnlabeledCompound(std::string experiment);
@@ -64,6 +65,7 @@ public:
     double getMinANOVAPvalue();
     double getANOVAPvalueForMassIsotopomer(int m);
     double getANOVAPvalue(std::vector<double> means, std::vector<double> sds, int n);
+    double getAverageRetentionIndex();
 
     std::vector<std::string> getExperiments(); // The different tracer names // unique!
     bool hasDataForExperiment(std::string);

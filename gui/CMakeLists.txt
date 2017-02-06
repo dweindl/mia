@@ -168,7 +168,7 @@ else()
         -Wl,-Bstatic -lX11-xcb -lXi -lSM -lICE -ldbus-1 -lxcb -L/home/dweidl/src/_libs/qt5/qtbase/src/plugins/platforms/xcb/xcb-static -lxcb-static -lxkbcommon-x11 -lxkbcommon -L/usr/local/Qt-5.3.1/lib -lQt5PlatformSupport -lfontconfig -lfreetype -lXrender -lXext -lX11  -lQt5DBus -lQt5Gui -ljpeg -lpng -lQt5Core -lpcre16 -lz -licui18n -licuuc -licudata -lm -pthread -lgthread-2.0 -lglib-2.0 -lrt  -Wl,-Bdynamic -ludev -lEGL -lGL -lXau -lXdmcp -lltdl -ldl
     )
 
-    target_link_libraries(mia-gui -Wl,-rpath=/usr/share/mia/
+    target_link_libraries(mia-gui -Wl,-rpath=/usr/share/mia/ -Wl,-rpath=/usr/lib/graphviz/
         ${GraphViz_LIBRARIES}
         -lexpat
         mia
