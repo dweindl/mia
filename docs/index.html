@@ -1,0 +1,269 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<style>
+body {
+    background-color: #EEEEEE;
+    font-family: sans-serif;
+/*     text-align:center; */
+}
+table {
+    margin-left: auto;
+    margin-right: auto;
+    background-color:white;
+    border-color:#DDDDDD;
+    border-width:2px;
+    border-style:solid;
+}
+
+td {
+    padding-left:20px;
+    padding-right:20px;
+    vertical-align:top;
+
+}
+
+hr {
+    color:LightGray;
+    background-color:LightGray;
+}
+
+hr[name="topline"] {
+    margin-bottom:50px;
+}
+
+hr[name="bottomline"] {
+    margin-top:20px;
+    margin-bottom:50px;
+}
+
+a {
+    color:black;
+}
+
+a[name="toplink"] {
+/*     padding-top:40px; */
+    padding-left:95%;
+}
+
+li {
+    padding-top:2pt;
+    padding-bottom:2pt;
+}
+
+
+#menu {
+    background-color:#F9F9F9;
+    padding:15px 15px 15px 15px;
+    border-color:#DDDDDD;
+    border-width:1px;
+    border-style:dotted;
+    margin-top:20px;
+    position:fixed;
+    width:9%;
+}
+
+#header{
+    background-color:#F9F9F9;
+    outline-color:#DDDDDD;
+    outline-width:1px;
+    outline-style:dotted;
+    
+}
+
+#header-inner{
+    background-color:#F9F9F9;
+    border-width: 0px;
+}
+
+
+div[name="screenshot"] {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align:center;
+}
+
+img[name="screenshot"]{
+    padding-bottom:20px
+}
+</style>
+
+<head>
+<title>MIA - Mass Isotopolome Analyzer</title>
+</head>
+
+<body>
+
+<table width="80%" cellspacing="0" cellpadding="0">
+
+<tr id="header"><td colspan=2>
+<table id="header-inner"><tr>
+<td><img src="images/logotransp90dpi.png" alt="MIA Logo"></td>
+<td style="vertical-align:middle"><h1>Mass Isotopolome Analyzer</h1></td>
+</tr></table>
+</td></tr>
+
+<tr><td width="16%">
+<div id="menu">
+<a href="#home">Home</a><hr>
+<a href="#downloads">Downloads</a><hr>
+<a href="#screenshots">Screenshots</a><hr>
+<!-- <a href="#documentation">Documentation</a><hr> -->
+<a href="#publications">Publications</a><hr>
+<a href="#weblinks">Weblinks</a><hr>
+<a href="#contact">Contact</a>
+</div>
+</td>
+
+<td>
+
+<!-- HOME HOME HOME HOME HOME HOME HOME HOME HOME HOME HOME HOME -->
+
+<a name="home"><h2>Home</h2></a>
+<hr name="topline">
+
+<div style="width:50%;margin-left:auto;margin-right:auto;border-color:LightGray;border-width:1px; border-style:solid;padding: 10px 10px 10px 10px;text-align:justify">
+<b>MIA</b> detects and visualizes isotopic enrichment in GC-
+EI-MS datasets in a non-targeted manner. It provides an easy-to-use
+graphical user interface that allows for visual mass isotopomer distribution analysis across multiple datasets. <b>MIA</b> helps to reveal changes
+in metabolic fluxes, visualize metabolic proximity of isotopically enriched compounds and shows the fate of the applied stable isotope
+labeled tracer.
+</div>
+
+<p><u>When using MIA, please cite:</u><br/> Daniel Weindl, Andre Wegner, and Karsten Hiller. 
+MIA: Non-targeted mass isotopolome analysis. <i>Bioinformatics</i>, <b>2016</b> <a href="http://dx.doi.org/10.1093/bioinformatics/btw317">doi:10.1093/bioinformatics/btw317</a></p>
+
+<a href="#home" name="toplink">top</a><hr name="bottomline">
+
+<!-- DOWNLOADS DOWNLOADS DOWNLOADS DOWNLOADS DOWNLOADS DOWNLOADS -->
+
+<a name="downloads"><h2>Downloads</h2></a>
+<hr name="topline">
+
+<u>Linux .deb installation packages:</u>
+<ul>
+<!-- <li>MIA for windows <a href="download/.exe">64bit</a></li> -->
+<li>MIA 1.0.0-9 <a href="download/mia_1.0.0-9-g7e49_amd64.deb">64bit</a> for Ubuntu 16.10 (last update: 06.02.2017)</li>
+
+<li>MIA 1.0.0 <a href="download/mia_1.0.0-201604021659.deb">64bit</a> for Ubuntu 15.10</li>
+</ul>
+
+<u>Windows:</u>
+<ul>
+<li>MIA 1.0.0 32bit <a href="download/mia_1.0.0-201604021659-standalone.exe">stand-alone</a> | <a href="download/mia_1.0.0-201604021659-installer.exe">installer</a> (Tested on Windows 10)</li>
+</ul>
+
+<u>Other:</u>
+<ul>
+<li>Documentation &amp; Tutorial&nbsp;<a href="download/mia-doc.pdf">pdf</a></li>
+<li><a href="download/sampledata.tgz">Sample data</a></li>
+<li>MIA source code is available on GitHub: <a href="https://github.com/dweindl/mia">https://github.com/dweindl/mia</a></li>
+</ul>
+
+<a href="#home" name="toplink">top</a><hr name="bottomline">
+
+<!-- SCREENSHOTS SCREENSHOTS SCREENSHOTS SCREENSHOTS SCREENSHOTS -->
+
+<a name="screenshots"><h2>Screenshots</h2></a>
+<hr name="topline">
+
+<div name="screenshot">
+<img width=80% src="images/screenshot1.png" name="screenshot"><br>
+The MIA main window showing mass isotopomer distributions of isotopically enriched compounds in different datasets (bar colors). The edges connect compounds with similar labeling patterns, a sign of thir biochemical proximity.
+</div>
+
+<hr width="50%">
+<div name="screenshot">
+<img width=40% src="images/screenshot2.png" name="screenshot"><br>
+Detailed fragment mass isotopomer distributions.
+</div>
+<a href="#home" name="toplink">top</a><hr name="bottomline">
+
+<!-- DOCUMENTATION DOCUMENTATION DOCUMENTATION DOCUMENTATION -->
+<!--
+<a name="documentation"><h2>Documentation</h2></a>
+<hr name="topline">
+
+TODO
+
+<a href="#home" name="toplink">top</a><hr name="bottomline">-->
+
+<!-- PUBLICATIONS PUBLICATIONS PUBLICATIONS PUBLICATIONS PUBLICATIONS -->
+
+<a name="publications"><h2>Publications</h2></a>
+<hr name="topline">
+
+MIA application note (please cite when using MIA):
+<ul>
+<li>Daniel Weindl, Andre Wegner, and Karsten Hiller. 
+MIA: Non-targeted mass isotopolome analysis. <i>Bioinformatics</i>, <b>2016</b> <a href="http://dx.doi.org/10.1093/bioinformatics/btw317">doi:10.1093/bioinformatics/btw317</a></li>
+</ul>
+
+
+Application of MIA for the analysis of hypoxic cancer cell metabolism:
+<ul>
+<li>Daniel Weindl, Thekla Cordes, Nadia Battello, Sean C. Sapcariu, Xiangyi Dong, Andre Wegner and Karsten Hiller. Bridging the gap between non-targeted stable isotope labeling and metabolic flux analysis. <i>Cancer &amp; Metabolism</i>, 2016, <b>4</b>:10 [ <a href="http://cancerandmetabolism.biomedcentral.com/articles/10.1186/s40170-016-0150-z">Full text</a> ]</li>
+</ul>
+
+
+<a href="http://metabolitedetector.tu-bs.de/" target="_self" title="MetaboliteDetector">MetaboliteDetector</a> software (recommended to be used for peak picking and deconvolution prior to MIA analysis):
+<ul>
+<li>Hiller, K.; Metallo, C. M.; Kelleher, J. K. &amp; Stephanopoulos, G. Nontargeted elucidation of metabolic pathways using stable-isotope tracers and mass spectrometry. <em>Anal Chem</em>, 2010, <strong>82</strong>, 6621-6628. [&nbsp;<a href="http://www.ncbi.nlm.nih.gov/pubmed/20608743">Pubmed</a>&nbsp;]</li>
+</ul>
+
+The underlying non-targeted tracer fate detection (NTFD) algorithm for the non-targeted quantitative detection of isotopic enrichment:
+<ul>
+<li>Weindl, D.; Wegner, A. &amp; Hiller, K. <i>Methods in Enzymology</i>, Academic Press, 2015, <b>561</b>, 277 - 302 [&nbsp;<a href="http://www.ncbi.nlm.nih.gov/pubmed/26358908">Pubmed</a>&nbsp;]</li>
+<li>Hiller, K.; Wegner, A.; Weindl, D.; Cordes, T.; Metallo, C.M.; Kelleher, J.K.; Stephanopoulos, G. NTFD--a stand-alone application for the non-targeted detection of stable isotope-labeled compounds in GC/MS data. <em>Bioinformatics</em>, 2013, <strong>29</strong>(9), 1226-8 [&nbsp;<a href="http://www.ncbi.nlm.nih.gov/pubmed/23479350">Pubmed</a>&nbsp;]</li>
+</ul>
+
+Protocol for metabolite extraction from mammalian cells, sample preparation and GC-MS analysis:
+<ul><li>Hiller, K.; Hangebrauk, J.; J&auml;ger, C.; Spura, J.; Schreiber, K. &amp; Schomburg, D. MetaboliteDetector: comprehensive analysis tool for targeted and nontargeted GC/MS based metabolome analysis. <em>Anal Chem</em>, 2009, <strong>81</strong>, 3429-3439 [&nbsp;<a href="http://www.ncbi.nlm.nih.gov/pubmed/19358599">Pubmed</a>&nbsp;]</li></ul>
+
+
+<a href="#home" name="toplink">top</a><hr name="bottomline">
+
+
+
+<!-- WEBLINKS WEBLINKS WEBLINKS WEBLINKS WEBLINKS WEBLINKS WEBLINKS -->
+
+<a name="weblinks"><h2>Weblinks</h2></a>
+<hr name="topline">
+
+<p>Related software</p>
+<ul>
+<li><a href="http://metabolitedetector.tu-bs.de/" target="_self" title="MetaboliteDetector">MetaboliteDetector</a> - Deconvolution and Analysis of GC/MS Data</li>
+<li><a href="http://www.ffc.lu/ntfd/" title="NTFD">NTFD</a> - A tool for non-targeted detection of stable isotope labeled ions</li>
+<li><a href="http://www.ffc.lu/" title="NTFD">FFC</a> - A tool for the determination of composition of mass spectrometric fragment ions</li>
+</ul>
+<p>&nbsp;</p>
+<p>Labs</p>
+<ul>
+<li><a href="http://wwwen.uni.lu/lcsb/research/metabolomics/">Metabolomics Junior Reasearch Group</a> @ <a href="http://lcsb.lu/">Luxembourg Centre for Systems Biomedicine (LCSB)</a></li>
+</ul>
+
+<a href="#home" name="toplink">top</a><hr name="bottomline">
+
+<!-- CONTACT CONTACT CONTACT CONTACT CONTACT CONTACT CONTACT CONTACT -->
+
+<a name="contact"><h2>Contact</h2></a>
+<hr name="topline">
+
+<p>Dr. Daniel WEINDL</p>
+<p>sci(a)danielweindl.de</p>
+<p></p>
+<p>Prof. Dr. Karsten Hiller</p>
+<p>karsten.hiller(a)tu-braunschweig.de</p>
+<p>BRICS Braunschweig Integrated Centre of Systems Biology<br>TU Braunschweig<br>Rebenring 56<br>D-38106 Braunschweig</p> 
+
+<a href="#home" name="toplink">top</a><hr name="bottomline">
+
+
+</td>
+</tr>
+</table>
+
+</body>
+</html>
