@@ -1,0 +1,6 @@
+docs/download/*.exe filter=lfs diff=lfs merge=lfs -text
+docs/download/*.deb filter=lfs diff=lfs merge=lfs -text
+docs/download/archive/*.deb filter=lfs diff=lfs merge=lfs -text
+docs/download/archive/*.exe filter=lfs diff=lfs merge=lfs -text
+docs/download/archive/*.zip filter=lfs diff=lfs merge=lfs -text
+docs/download/*.tgz filter=lfs diff=lfs merge=lfs -text
